@@ -17,7 +17,7 @@ setup :-
  * doAction
  * readFromStdIn
  ✅ addLine
- * shiftContent
+ ✅ shiftContent(added inside addLine)
  * onStop
  ✅ getLines
  * printTail
