@@ -1,0 +1,24 @@
+To do
+========
+1.node tail.js 
+2.node tail.js -n 5
+3.node tail.js a.txt
+4.node tail.js -n 5 a.txt
+
+v 0.1.0
+node tail.js
+
+setup :- 
+*Directories : src, test
+*Files : tail.js, testTail.js, package.json,main.js
+*appTest
+modules : chai
+Tasks :-
+doAction
+readFromStdIn
+addContent
+shiftContent
+onStop
+printTail
+main
+
