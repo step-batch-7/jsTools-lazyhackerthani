@@ -16,7 +16,7 @@ setup :-
 *Tasks :-
  * doAction
  * readFromStdIn
- * addLine
+ ✅ addLine
  * shiftContent
  * onStop
  ✅ getLines

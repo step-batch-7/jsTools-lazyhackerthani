@@ -8,4 +8,11 @@ describe('Tail', function() {
       assert.deepStrictEqual(tail.getLines(), []);
     });
   });
+  describe('addLine', function() {
+    it('should add new line', function() {
+      const tail = new Tail();
+      tail.addLine('this is new line');
+      assert.deepStrictEqual(tail.getLines(), ['this is new line']);
+    });
+  });
 });
