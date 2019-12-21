@@ -9,16 +9,16 @@ v 0.1.0
 node tail.js
 
 setup :- 
-*Directories : src, test
-*Files : tail.js, testTail.js, package.json,main.js
+✅Directories : src, test
+✅Files : tail.js, testTail.js, package.json,main.js
 *appTest
-modules : chai
-Tasks :-
-doAction
-readFromStdIn
-addContent
-shiftContent
-onStop
-printTail
-main
-
+✅modules : chai
+*Tasks :-
+ * doAction
+ * readFromStdIn
+ * addLine
+ * shiftContent
+ * onStop
+ ✅ getLines
+ * printTail
+ ✅ main
