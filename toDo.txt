@@ -10,15 +10,15 @@ node tail.js
 
 setup :- 
 ✅Directories : src, test
-✅Files : tail.js, testTail.js, package.json,main.js
+✅Files : tail.js, testTail.js, package.json,tail.js
 *appTest
 ✅modules : chai
 *Tasks :-
  * doAction
- * readFromStdIn
+ ✅readFromStdIn
  ✅ addLine
  ✅ shiftContent(added inside addLine)
- * onStop
+ ✅ onStop
  ✅ getLines
- * printTail
+ ✅ printTail(printing in main)
  ✅ main

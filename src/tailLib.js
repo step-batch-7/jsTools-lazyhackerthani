@@ -7,7 +7,7 @@ class Tail {
     return this.lines;
   }
   addLine(lineToAdd) {
-    this.lines.push(lineToAdd);
+    this.lines.push(lineToAdd.trim());
     if (this.lines.length > this.n) this.lines.shift();
   }
 }

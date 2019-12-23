@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const Tail = require('../src/tail.js');
+const Tail = require('../src/tailLib.js');
 
 describe('Tail', function() {
   describe('getLines', function() {
