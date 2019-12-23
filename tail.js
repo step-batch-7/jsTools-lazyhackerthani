@@ -1,6 +1,6 @@
 const Tail = require('./src/tailLib.js');
 
-const main = function() {
+const main = function(options) {
   const tail = new Tail();
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', line => {
@@ -10,4 +10,4 @@ const main = function() {
   return 0;
 };
 
-main();
+main(process.argv.slice(2));
