@@ -14,7 +14,7 @@ setup :-
 *appTest
 ✅modules : chai
 *Tasks :-
- * doAction
+ * doAction(Note:will handle later)
  ✅readFromStdIn
  ✅ addLine
  ✅ shiftContent(added inside addLine)
@@ -22,3 +22,11 @@ setup :-
  ✅ getLines
  ✅ printTail(printing in main)
  ✅ main
+
+v 0.2.0
+node tail.js -n 5
+
+#Files
+ ✅inputValidators.js,testInputValidators.js
+#Tasks 
+ ✅getN
