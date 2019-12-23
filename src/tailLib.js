@@ -1,5 +1,5 @@
 class Tail {
-  constructor(n = 10) {
+  constructor(n) {
     this.n = n;
     this.lines = [];
   }

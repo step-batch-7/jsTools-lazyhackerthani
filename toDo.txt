@@ -37,3 +37,7 @@ node tail.js -n
  expected outPut:
   tail: option requires an argument -- n
   usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]
+  #Tasks
+  ✅validateN
+  ✅errMsg(class)
+  ✅errors(global object)
