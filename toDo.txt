@@ -30,3 +30,10 @@ node tail.js -n 5
  ✅inputValidators.js,testInputValidators.js
 #Tasks 
  ✅getN
+
+v0.2.1
+node tail.js -n 
+(Note: bug fix)
+ expected outPut:
+  tail: option requires an argument -- n
+  usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]
