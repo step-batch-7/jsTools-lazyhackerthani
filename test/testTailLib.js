@@ -18,14 +18,12 @@ describe('Tail', function() {
       const tail = new Tail(1);
       tail.addLine('this is first line');
       assert.deepStrictEqual(tail.getLines(), ['this is first line']);
-      assert.deepStrictEqual();
     });
     it('should give only ending n lines for given more than n lines', function() {
       const tail = new Tail(1);
       tail.addLine('this is first line');
       tail.addLine('this is second line');
       assert.deepStrictEqual(tail.getLines(), ['this is second line']);
-      assert.deepStrictEqual();
     });
   });
 });
