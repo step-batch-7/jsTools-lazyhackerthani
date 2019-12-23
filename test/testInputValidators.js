@@ -11,7 +11,14 @@ describe('getN', function() {
 });
 
 describe('validateN', function() {
-  it('should validateN when it has only one -n and has a integer value after that', function() {
+  it('should validate when it has only one -n and has a integer value after that', function() {
     assert.isTrue(validateN(['-n', 5]));
+  });
+  it('should invalidate when it has only one -n and has a non integer value after that', function() {
+    assert.isFalse(validateN(['-n', 5.3]));
+  });
+  it('should invalidate when it has only one -n and has a string value after that', function() {
+    assert.isFalse(validateN(['-n', 'd']));
+    assert.isFalse(validateN(['-n', '-n']));
   });
 });
