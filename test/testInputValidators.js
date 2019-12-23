@@ -3,10 +3,17 @@ const { getN, errorMsg } = require('../src/inputValidators.js');
 
 describe('getN', function() {
   it('should give n value from user args', function() {
-    assert.deepStrictEqual(getN(['-n', 5]), 5);
+    assert.deepStrictEqual(getN(['-n', '5'], new errorMsg()), 5);
   });
-  it('should give undefined when there is no -n option present', function() {
-    assert.strictEqual(getN([]), 10);
+  it('should give 10 when there is no -n option present', function() {
+    assert.strictEqual(getN([], new errorMsg()), 10);
+  });
+  it('should give 0 when there is no valid -n and value present', function() {
+    assert.strictEqual(getN(['-n'], new errorMsg()), 0);
+    assert.strictEqual(getN(['-n', '-n'], new errorMsg()), 0);
+    assert.strictEqual(getN(['-n', '2.3'], new errorMsg()), 0);
+    assert.strictEqual(getN(['-n', 's'], new errorMsg()), 0);
+    assert.strictEqual(getN(['-n', '-1'], new errorMsg()), 0);
   });
 });
 
@@ -45,10 +52,18 @@ describe('description for func to test', function() {
   });
 
   describe('validateN', function() {
-    it('should validate N and add error to error object', function() {
+    it('should validate N and add nothing to error object', function() {
       const err = new errorMsg();
       err.validateN(['-n', 5]);
       assert.deepStrictEqual(err.getError(), []);
+    });
+    it('should validate N and add error to error object', function() {
+      const err = new errorMsg();
+      err.validateN(['-n']);
+      assert.deepStrictEqual(err.getError(), [
+        `tail: option requires an argument -- n`,
+        `usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]`
+      ]);
     });
   });
 });

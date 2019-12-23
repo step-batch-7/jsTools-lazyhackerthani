@@ -1,15 +1,15 @@
 const getN = function(usrArgs, err) {
   const index = usrArgs.indexOf('-n');
   if (index == -1) return 10;
-  return usrArgs[index + 1];
+  if (!err.isValidN(usrArgs)) {
+    return 0;
+  }
+  return +usrArgs[index + 1];
 };
 
-// const validateN = function(usrArgs) {
-//   const index = usrArgs.indexOf('-n');
-//   return (
-//     index == usrArgs.lastIndexOf('-n') && Number.isInteger(usrArgs[index + 1])
-//   );
-// };
+const isPositiveInteger = function(s) {
+  return /^\+?[1-9][\d]*$/.test(s);
+};
 
 const errors = {
   usage: `usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]`,
@@ -17,8 +17,9 @@ const errors = {
 };
 
 class errorMsg {
-  constructor() {
+  constructor(usrArgs) {
     this.error = [];
+    this.validateN(usrArgs);
   }
   getError() {
     return this.error;
@@ -26,16 +27,17 @@ class errorMsg {
   isValidN(usrArgs) {
     const index = usrArgs.indexOf('-n');
     return (
-      index == usrArgs.lastIndexOf('-n') && Number.isInteger(usrArgs[index + 1])
+      index == usrArgs.lastIndexOf('-n') &&
+      isPositiveInteger(+usrArgs[index + 1])
     );
   }
   validateN(usrArgs) {
-    if (this.isValidN(usrArgs)) {
-      return;
-    }
-    if (Number.isInteger(usrArgs[index + 1])) {
+    const index = usrArgs.indexOf('-n');
+    const valid = this.isValidN(usrArgs);
+    if (!isPositiveInteger(+usrArgs[index + 1])) {
       this.error.push(errors.tail[0], errors.usage);
     }
+    return valid;
   }
 }
 
