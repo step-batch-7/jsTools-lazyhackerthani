@@ -1,10 +1,5 @@
-const getN = function(usrArgs, err) {
-  const index = usrArgs.indexOf('-n');
-  if (index == -1) return 10;
-  if (!err.isValidN(usrArgs)) {
-    return 0;
-  }
-  return +usrArgs[index + 1];
+const getN = function(usrArgs) {
+  return +usrArgs[usrArgs.indexOf('-n') + 1];
 };
 
 const isPositiveInteger = function(s) {
@@ -16,10 +11,12 @@ const errors = {
   tail: [`tail: option requires an argument -- n`, `tail: illegal offset -- -n`]
 };
 
-class errorMsg {
-  constructor(usrArgs) {
+class Error {
+  constructor() {
     this.error = [];
-    this.validateN(usrArgs);
+  }
+  addError(errMsg) {
+    this.error.push(errMsg);
   }
   getError() {
     return this.error;
@@ -31,7 +28,7 @@ class errorMsg {
       isPositiveInteger(+usrArgs[index + 1])
     );
   }
-  validateN(usrArgs) {
+  validateOption(usrArgs) {
     const index = usrArgs.indexOf('-n');
     const valid = this.isValidN(usrArgs);
     if (!isPositiveInteger(+usrArgs[index + 1])) {
@@ -41,4 +38,4 @@ class errorMsg {
   }
 }
 
-module.exports = { getN, errorMsg };
+module.exports = { getN, Error };

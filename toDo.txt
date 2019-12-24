@@ -5,7 +5,7 @@ To do
 3.node tail.js a.txt
 4.node tail.js -n 5 a.txt
 
-v 0.1.0
+v 0.0.1.0
 node tail.js
 
 setup :- 
@@ -23,7 +23,7 @@ setup :-
  ✅ printTail(printing in main)
  ✅ main
 
-v 0.2.0
+v 0.0.2.0
 node tail.js -n 5
 
 #Files
@@ -31,13 +31,13 @@ node tail.js -n 5
 #Tasks 
  ✅getN
 
-v0.2.1
+v0.0.2.1
 node tail.js -n 
 (Note: bug fix)
  expected outPut:
   tail: option requires an argument -- n
   usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]
   #Tasks
-  ✅validateN
+  ✅validateOption
   ✅errMsg(class)
   ✅errors(global object)

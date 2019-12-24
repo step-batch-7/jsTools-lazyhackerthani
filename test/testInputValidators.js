@@ -1,25 +1,15 @@
 const assert = require('chai').assert;
-const { getN, errorMsg } = require('../src/inputValidators.js');
+const { getN, Error } = require('../src/inputValidators.js');
 
 describe('getN', function() {
   it('should give n value from user args', function() {
-    assert.deepStrictEqual(getN(['-n', '5'], new errorMsg()), 5);
-  });
-  it('should give 10 when there is no -n option present', function() {
-    assert.strictEqual(getN([], new errorMsg()), 10);
-  });
-  it('should give 0 when there is no valid -n and value present', function() {
-    assert.strictEqual(getN(['-n'], new errorMsg()), 0);
-    assert.strictEqual(getN(['-n', '-n'], new errorMsg()), 0);
-    assert.strictEqual(getN(['-n', '2.3'], new errorMsg()), 0);
-    assert.strictEqual(getN(['-n', 's'], new errorMsg()), 0);
-    assert.strictEqual(getN(['-n', '-1'], new errorMsg()), 0);
+    assert.deepStrictEqual(getN(['-n', '5'], new Error()), 5);
   });
 });
 
 describe('description for func to test', function() {
   describe('isValidN', function() {
-    const err = new errorMsg();
+    const err = new Error();
     it('should validate when it has only one -n and has a integer value after that', function() {
       assert.isTrue(err.isValidN(['-n', 5]));
     });
@@ -46,20 +36,20 @@ describe('description for func to test', function() {
 
   describe('getError', function() {
     it('should give error', function() {
-      const err = new errorMsg();
+      const err = new Error();
       assert.deepStrictEqual(err.getError(), []);
     });
   });
 
-  describe('validateN', function() {
+  describe('validateOption', function() {
     it('should validate N and add nothing to error object', function() {
-      const err = new errorMsg();
-      err.validateN(['-n', 5]);
+      const err = new Error();
+      err.validateOption(['-n', 5]);
       assert.deepStrictEqual(err.getError(), []);
     });
     it('should validate N and add error to error object', function() {
-      const err = new errorMsg();
-      err.validateN(['-n']);
+      const err = new Error();
+      err.validateOption(['-n']);
       assert.deepStrictEqual(err.getError(), [
         `tail: option requires an argument -- n`,
         `usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]`
