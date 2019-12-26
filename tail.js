@@ -1,7 +1,7 @@
 const MovingWindow = require('./src/tailLib.js');
-
-const readInput = function(numberLine) {
-  const tail = new MovingWindow(numberLine);
+const { parseUserArgs } = require('./src/optionHandler.js');
+const readInput = function(options) {
+  const tail = new MovingWindow(options);
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', data => {
     const lines = data.trim().split('\n');
@@ -12,10 +12,9 @@ const readInput = function(numberLine) {
   });
 };
 
-const main = function(options) {
-  let usrArgs = [...options];
-  let numberLine = 10;
-  readInput(numberLine);
+const main = function(userOptions) {
+  const essence = parseUserArgs(userOptions, [readInput]);
+  essence.funcRef(essence.options);
 };
 
 main(process.argv.slice(2));

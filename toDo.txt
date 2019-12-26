@@ -29,7 +29,7 @@ node tail.js -n 5
 #Files
  ✅inputValidators.js,testInputValidators.js
 #Tasks 
- ✅getN
+ ✅getNumberLineValue
 
 v0.0.2.1
 node tail.js -n 

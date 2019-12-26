@@ -1,6 +1,6 @@
 class MovingWindow {
-  constructor(n = 10) {
-    this.n = n;
+  constructor(options) {
+    this.n = options.n;
     this.lines = [];
   }
   getLines() {
