@@ -1,0 +1,1 @@
+cat ./appTest/emptyFile.txt|node tail.js

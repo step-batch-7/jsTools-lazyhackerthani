@@ -1,4 +1,4 @@
-class Tail {
+class MovingWindow {
   constructor(n = 10) {
     this.n = n;
     this.lines = [];
@@ -7,9 +7,9 @@ class Tail {
     return this.lines;
   }
   addLine(lineToAdd) {
-    this.lines.push(lineToAdd.trim());
+    this.lines.push(lineToAdd);
     if (this.lines.length > this.n) this.lines.shift();
   }
 }
 
-module.exports = Tail;
+module.exports = MovingWindow;

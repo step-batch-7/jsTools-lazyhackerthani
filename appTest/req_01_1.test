@@ -1,0 +1,6 @@
+cat ./appTest/fiveLineFile.txt|node tail.js
+1
+2
+3
+4
+5
