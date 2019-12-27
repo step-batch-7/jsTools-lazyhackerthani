@@ -1,5 +1,4 @@
 const assert = require('chai').assert;
-const EventEmitter = require('events').EventEmitter;
 const { spy, stub } = require('sinon');
 const MovingWindow = require('../src/movingWindow.js');
 const { readEndLines, onData } = require('../src/readers.js');
@@ -28,14 +27,20 @@ describe('onData', function() {
 
 describe('readEndLines', function() {
   it('should readInput from given event listener and do operations on it', function(done) {
-    const dummyReadStream = new EventEmitter();
+    const dummyReadStream = {};
+    let invokeOnData, invokeOnEnd;
+    dummyReadStream.on = stub((name, callback) => {
+      if (name == 'data') invokeOnData = callback;
+      if (name == 'end') invokeOnEnd = callback;
+    });
+
     dummyReadStream.setEncoding = spy();
     readEndLines({ n: 10 }, dummyReadStream, content => {
       assert(dummyReadStream.setEncoding.calledWith('utf8'));
       assert.deepStrictEqual(content, '1\n2\n3');
       done();
     });
-    dummyReadStream.emit('data', '1\n2\n3\n');
-    dummyReadStream.emit('end');
+    invokeOnData('1\n2\n3\n');
+    invokeOnEnd();
   });
 });
