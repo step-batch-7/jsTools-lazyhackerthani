@@ -26,7 +26,7 @@ describe('onData', function() {
 });
 
 describe('readEndLines', function() {
-  it('should readInput from given event listener and do operations on it', function(done) {
+  it('should readInput from given event listener and do operations on it when onData invoke once with multi line data', function(done) {
     const dummyReadStream = {};
     let invokeOnData, invokeOnEnd;
     dummyReadStream.on = stub((name, callback) => {
@@ -41,6 +41,41 @@ describe('readEndLines', function() {
       done();
     });
     invokeOnData('1\n2\n3\n');
+    invokeOnEnd();
+  });
+  it('should readInput from given event listener and do operations on it when onData invoke once with single line data', function(done) {
+    const dummyReadStream = {};
+    let invokeOnData, invokeOnEnd;
+    dummyReadStream.on = stub((name, callback) => {
+      if (name == 'data') invokeOnData = callback;
+      if (name == 'end') invokeOnEnd = callback;
+    });
+
+    dummyReadStream.setEncoding = spy();
+    readEndLines({ n: 10 }, dummyReadStream, content => {
+      assert(dummyReadStream.setEncoding.calledWith('utf8'));
+      assert.deepStrictEqual(content, '1');
+      done();
+    });
+    invokeOnData('1');
+    invokeOnEnd();
+  });
+  it('should readInput from given event listener and do operations on it when onData invoke multiple times with single line data', function(done) {
+    const dummyReadStream = {};
+    let invokeOnData, invokeOnEnd;
+    dummyReadStream.on = stub((name, callback) => {
+      if (name == 'data') invokeOnData = callback;
+      if (name == 'end') invokeOnEnd = callback;
+    });
+
+    dummyReadStream.setEncoding = spy();
+    readEndLines({ n: 10 }, dummyReadStream, content => {
+      assert(dummyReadStream.setEncoding.calledWith('utf8'));
+      assert.deepStrictEqual(content, '1\n2');
+      done();
+    });
+    invokeOnData('1');
+    invokeOnData('2');
     invokeOnEnd();
   });
 });
