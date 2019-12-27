@@ -1,11 +1,11 @@
 const MovingWindow = require('../src/movingWindow.js');
 
-const readInput = function(options, stdin, printResult) {
+const readEndLines = function(options, readStream, onComplete) {
   const tail = new MovingWindow(options);
-  stdin.setEncoding('utf8');
-  stdin.on('data', onData.bind(tail));
-  stdin.on('end', () => {
-    printResult(tail.getLines().join('\n'));
+  readStream.setEncoding('utf8');
+  readStream.on('data', onData.bind(tail));
+  readStream.on('end', () => {
+    onComplete(tail.getLines().join('\n'));
   });
 };
 
@@ -14,4 +14,4 @@ const onData = function(dataLine) {
   lines.forEach(line => this.addLine(line));
 };
 
-module.exports = { readInput, onData };
+module.exports = { readEndLines, onData };

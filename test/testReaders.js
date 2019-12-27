@@ -1,7 +1,8 @@
 const assert = require('chai').assert;
 const EventEmitter = require('events').EventEmitter;
+const { spy, stub } = require('sinon');
 const MovingWindow = require('../src/movingWindow.js');
-const { readInput, onData } = require('../src/readers.js');
+const { readEndLines, onData } = require('../src/readers.js');
 
 describe('onData', function() {
   it('should add the given dataLine to tail object bounded to it', function() {
@@ -25,17 +26,16 @@ describe('onData', function() {
   });
 });
 
-describe('readInput', function() {
-  it('should readInput from given event listener and do operations on it', function() {
-    const EE = new EventEmitter();
-    EE.setEncoding = encode => {
-      assert.equal(encode, 'utf8');
-    };
-    const dummyPrint = function(content) {
+describe('readEndLines', function() {
+  it('should readInput from given event listener and do operations on it', function(done) {
+    const dummyReadStream = new EventEmitter();
+    dummyReadStream.setEncoding = spy();
+    readEndLines({ n: 10 }, dummyReadStream, content => {
+      assert(dummyReadStream.setEncoding.calledWith('utf8'));
       assert.deepStrictEqual(content, '1\n2\n3');
-    };
-    readInput({ n: 10 }, EE, dummyPrint);
-    EE.emit('data', '1\n2\n3\n');
-    EE.emit('end');
+      done();
+    });
+    dummyReadStream.emit('data', '1\n2\n3\n');
+    dummyReadStream.emit('end');
   });
 });
