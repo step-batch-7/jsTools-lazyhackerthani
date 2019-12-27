@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const MovingWindow = require('../src/MovingWindow.js');
+const MovingWindow = require('../src/movingWindow.js');
 
 describe('MovingWindow', function() {
   describe('getLines', function() {

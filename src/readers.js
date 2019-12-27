@@ -1,11 +1,17 @@
-const readInput = function(options) {
+const MovingWindow = require('../src/movingWindow.js');
+
+const readInput = function(options, stdin, printResult) {
   const tail = new MovingWindow(options);
-  process.stdin.setEncoding('utf8');
-  process.stdin.on('data', data => {
-    const lines = data.trim().split('\n');
-    lines.forEach(line => tail.addLine(line));
-  });
-  process.stdin.on('end', () => {
-    process.stdout.write(tail.getLines().join('\n'));
+  stdin.setEncoding('utf8');
+  stdin.on('data', onData.bind(tail));
+  stdin.on('end', () => {
+    printResult(tail.getLines().join('\n'));
   });
 };
+
+const onData = function(dataLine) {
+  const lines = dataLine.trim().split('\n');
+  lines.forEach(line => this.addLine(line));
+};
+
+module.exports = { readInput, onData };
