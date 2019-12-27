@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const MovingWindow = require('../src/tailLib.js');
+const MovingWindow = require('../src/MovingWindow.js');
 
 describe('MovingWindow', function() {
   describe('getLines', function() {

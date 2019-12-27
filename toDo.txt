@@ -11,10 +11,10 @@ node tail.js
 setup :- 
 ✅Directories : src, test
 ✅Files : tail.js, testTail.js, package.json,tail.js
-*appTest
+✅appTest
 ✅modules : chai
 *Tasks :-
- * doAction(Note:will handle later)
+ ✅ parseUserArgs
  ✅readFromStdIn
  ✅ addLine
  ✅ shiftContent(added inside addLine)
@@ -22,22 +22,3 @@ setup :-
  ✅ getLines
  ✅ printTail(printing in main)
  ✅ main
-
-v 0.0.2.0
-node tail.js -n 5
-
-#Files
- ✅inputValidators.js,testInputValidators.js
-#Tasks 
- ✅getNumberLineValue
-
-v0.0.2.1
-node tail.js -n 
-(Note: bug fix)
- expected outPut:
-  tail: option requires an argument -- n
-  usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]
-  #Tasks
-  ✅validateOption
-  ✅errMsg(class)
-  ✅Validates(global object)

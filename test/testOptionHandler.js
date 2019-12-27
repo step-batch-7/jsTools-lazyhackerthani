@@ -13,10 +13,14 @@ describe('getNumberLineValue', function() {
 describe('parseUserArgs', function() {
   it('should give option values and function reference to call in an object', function() {
     const fileNotPresent = () => {};
-    assert.deepStrictEqual(parseUserArgs(['-n', '5'], [fileNotPresent]), {
-      options: { n: 5 },
-      isValid: true,
-      funcRef: fileNotPresent
+    assert.deepStrictEqual(parseUserArgs(['-n', '5']), {
+      options: {
+        n: 5
+      }
     });
+  });
+  it('should give option values and function reference to call,option as default value', function() {
+    const fileNotPresent = () => {};
+    assert.deepStrictEqual(parseUserArgs([]), { options: { n: 10 } });
   });
 });

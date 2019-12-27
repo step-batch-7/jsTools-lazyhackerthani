@@ -1,6 +1,3 @@
-const MovingWindow = require('./src/MovingWindow.js');
-const { parseUserArgs } = require('./src/optionHandler.js');
-
 const readInput = function(options) {
   const tail = new MovingWindow(options);
   process.stdin.setEncoding('utf8');
@@ -12,9 +9,3 @@ const readInput = function(options) {
     process.stdout.write(tail.getLines().join('\n'));
   });
 };
-
-const main = function(cmdLineArgs) {
-  readInput(parseUserArgs(cmdLineArgs).options);
-};
-
-main(process.argv.slice(2));
