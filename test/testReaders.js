@@ -5,19 +5,19 @@ const { readEndLines, onData } = require('../src/readers.js');
 
 describe('onData', function() {
   it('should add the given dataLine to tail object bounded to it', function() {
-    const tail = new MovingWindow({ n: 10 });
+    const tail = new MovingWindow({ numberLine: 10 });
     onData.call(tail, 'a\nb\n');
     const actual = tail.getLines();
     assert.deepStrictEqual(actual, ['a', 'b']);
   });
   it('should add the given dataLine to tail object bounded to it and give ', function() {
-    const tail = new MovingWindow({ n: 2 });
+    const tail = new MovingWindow({ numberLine: 2 });
     onData.call(tail, 'a\nb\nc\n');
     const actual = tail.getLines();
     assert.deepStrictEqual(actual, ['b', 'c']);
   });
   it('should add the given dataLine to tail object bounded to it and give ', function() {
-    const tail = new MovingWindow({ n: 4 });
+    const tail = new MovingWindow({ numberLine: 4 });
     onData.call(tail, '1\n2\n3\n');
     onData.call(tail, 'a\nb\nc\n');
     const actual = tail.getLines();
@@ -35,7 +35,7 @@ describe('readEndLines', function() {
     });
 
     dummyReadStream.setEncoding = spy();
-    readEndLines({ n: 10 }, dummyReadStream, content => {
+    readEndLines({ numberLine: 10 }, dummyReadStream, content => {
       assert(dummyReadStream.setEncoding.calledWith('utf8'));
       assert.deepStrictEqual(content, '1\n2\n3');
       done();
@@ -52,7 +52,7 @@ describe('readEndLines', function() {
     });
 
     dummyReadStream.setEncoding = spy();
-    readEndLines({ n: 10 }, dummyReadStream, content => {
+    readEndLines({ numberLine: 10 }, dummyReadStream, content => {
       assert(dummyReadStream.setEncoding.calledWith('utf8'));
       assert.deepStrictEqual(content, '1');
       done();
@@ -69,7 +69,7 @@ describe('readEndLines', function() {
     });
 
     dummyReadStream.setEncoding = spy();
-    readEndLines({ n: 10 }, dummyReadStream, content => {
+    readEndLines({ numberLine: 10 }, dummyReadStream, content => {
       assert(dummyReadStream.setEncoding.calledWith('utf8'));
       assert.deepStrictEqual(content, '1\n2');
       done();

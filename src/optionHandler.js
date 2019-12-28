@@ -4,10 +4,10 @@ const getNumberLineValue = function(usrArgs, indexOfN) {
 
 const parseUserArgs = function(userArgs) {
   let numberLine = 10;
-  if (userArgs[0] == '-n') {
+  if (userArgs[0] === '-n') {
     numberLine = getNumberLineValue(userArgs, 0);
   }
-  return { options: { n: numberLine } };
+  return { options: { numberLine: numberLine } };
 };
 
 module.exports = { parseUserArgs, getNumberLineValue };

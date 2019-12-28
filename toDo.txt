@@ -10,15 +10,24 @@ node tail.js
 
 setup :- 
 ✅Directories : src, test
-✅Files : tail.js, testTail.js, package.json,tail.js
+✅Files : tail.js, readers.js,testReaders.js, package.json,movingWindow.js,testMovingWindow.js
 ✅appTest
-✅modules : chai
+✅modules : chai,sinon
 *Tasks :-
- ✅ parseUserArgs
- ✅readFromStdIn
- ✅ addLine
- ✅ shiftContent(added inside addLine)
- ✅ onStop
- ✅ getLines
- ✅ printTail(printing in main)
  ✅ main
+ ✅ MovingWindow
+ ✅ addLine
+ ✅ getLines
+ ✅ parseUserArgs
+ ✅ readEndLines
+ ✅ onData
+ ✅ printTail(printing in main)
+
+v 0.0.2.0
+node tail.js -n 5
+
+setup:-
+✅files:optionHandler.js,testOptionHandler.js
+
+Tasks:-
+✅ getNumberLineValue

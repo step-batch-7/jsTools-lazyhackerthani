@@ -1,6 +1,6 @@
 class MovingWindow {
   constructor(options) {
-    this.n = options.n;
+    this.numberLine = options.numberLine;
     this.lines = [];
   }
   getLines() {
@@ -8,8 +8,9 @@ class MovingWindow {
   }
   addLine(lineToAdd) {
     this.lines.push(lineToAdd);
-    if (this.lines.length > this.n) this.lines.shift();
+    if (this.lines.length > this.numberLine) {
+      this.lines.shift();
+    }
   }
 }
-
 module.exports = MovingWindow;

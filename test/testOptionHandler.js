@@ -15,12 +15,12 @@ describe('parseUserArgs', function() {
     const fileNotPresent = () => {};
     assert.deepStrictEqual(parseUserArgs(['-n', '5']), {
       options: {
-        n: 5
+        numberLine: 5
       }
     });
   });
   it('should give option values and function reference to call,option as default value', function() {
     const fileNotPresent = () => {};
-    assert.deepStrictEqual(parseUserArgs([]), { options: { n: 10 } });
+    assert.deepStrictEqual(parseUserArgs([]), { options: { numberLine: 10 } });
   });
 });
