@@ -1,11 +1,12 @@
 const getNumberLineValue = function(usrArgs, indexOfN) {
-  return +usrArgs[indexOfN + 1];
+  return +usrArgs[indexOfN++];
 };
 
 const parseUserArgs = function(userArgs) {
   let numberLine = 10;
-  if (userArgs[0] === '-n') {
-    numberLine = getNumberLineValue(userArgs, 0);
+  const initialIndex = 0;
+  if (userArgs[initialIndex] === '-n') {
+    numberLine = getNumberLineValue(userArgs, initialIndex);
   }
   return { options: { numberLine: numberLine } };
 };
