@@ -1,5 +1,5 @@
-const getNumberLineValue = function(usrArgs, indexOfN) {
-  return +usrArgs[indexOfN++];
+const getNumberLineValue = function(usrArgs, indexOfN = 0) {
+  return +usrArgs[++indexOfN];
 };
 
 const parseUserArgs = function(userArgs) {
@@ -8,7 +8,7 @@ const parseUserArgs = function(userArgs) {
   if (userArgs[initialIndex] === '-n') {
     numberLine = getNumberLineValue(userArgs, initialIndex);
   }
-  return { options: { numberLine: numberLine } };
+  return { options: { numberLine } };
 };
 
 module.exports = { parseUserArgs, getNumberLineValue };
