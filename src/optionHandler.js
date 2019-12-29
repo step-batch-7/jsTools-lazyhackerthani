@@ -11,4 +11,15 @@ const parseUserArgs = function(userArgs) {
   return { options: { numberLine } };
 };
 
-module.exports = { parseUserArgs, getNumberLineValue };
+const isValidOptionValue = function(validOption, optionValue) {
+  const validOptionAndValue = {};
+  validOptionAndValue.hasError = !Number.isInteger(+optionValue);
+  if (validOptionAndValue.hasError) {
+    validOptionAndValue.errorMsg = `tail: illegal offset -${optionValue}`;
+    return validOptionAndValue;
+  }
+  validOptionAndValue[validOption] = +optionValue;
+  return validOptionAndValue;
+};
+
+module.exports = { parseUserArgs, getNumberLineValue, isValidOptionValue };
