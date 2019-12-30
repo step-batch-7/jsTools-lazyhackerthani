@@ -1,26 +1,23 @@
 const assert = require('chai').assert;
 const {
-  getNumberLineValue,
   parseUserArgs,
   isValidOptionValue
 } = require('../src/optionHandler.js');
 
-describe('getNumberLineValue', function() {
-  it('should give n value from user args', function() {
-    assert.deepStrictEqual(getNumberLineValue(['-n', '5'], 0), 5);
-  });
-});
-
 describe('parseUserArgs', function() {
-  it('should give option values and function reference to call in an object', function() {
-    assert.deepStrictEqual(parseUserArgs(['-n', '5']), {
-      options: {
-        numberLine: 5
-      }
-    });
+  it('should give option values and files in an object', function() {
+    const expected = { hasError: false, n: 5, files: [] };
+    assert.deepStrictEqual(parseUserArgs(['-n', '5']), expected);
   });
-  it('should give option values and function reference to call,option as default value', function() {
-    assert.deepStrictEqual(parseUserArgs([]), { options: { numberLine: 10 } });
+  it('should give option values and files,option which is given', function() {
+    const actual = parseUserArgs([]);
+    const expected = { hasError: false, files: [] };
+    assert.deepStrictEqual(actual, expected);
+  });
+  it('should give option values and files,hasError should be true if one in the list is invalid', function() {
+    const actual = parseUserArgs(['-n', 'w', '-n', '5']);
+    const expected = { hasError: true, errorMsg: `tail: illegal offset -w` };
+    assert.deepStrictEqual(actual, expected);
   });
 });
 

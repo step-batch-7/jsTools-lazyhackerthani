@@ -6,7 +6,7 @@ const main = function(cmdLineArgs) {
   const printTail = contents => {
     stdout.write(contents);
   };
-  readEndLines(parseUserArgs(cmdLineArgs).options, stdin, printTail);
+  readEndLines(parseUserArgs(cmdLineArgs)['n'], stdin, printTail);
 };
 
 main(process.argv.slice(2));

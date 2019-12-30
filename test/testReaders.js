@@ -5,19 +5,19 @@ const { readEndLines, onData } = require('../src/readers.js');
 
 describe('onData', function() {
   it('should add the given dataLine to tail object bounded to it', function() {
-    const tail = new MovingWindow({ numberLine: 10 });
+    const tail = new MovingWindow(10);
     onData.call(tail, 'a\nb\n');
     const actual = tail.getLines();
     assert.deepStrictEqual(actual, ['a', 'b']);
   });
   it('should add the given dataLine to tail object bounded to it and give ', function() {
-    const tail = new MovingWindow({ numberLine: 2 });
+    const tail = new MovingWindow(2);
     onData.call(tail, 'a\nb\nc\n');
     const actual = tail.getLines();
     assert.deepStrictEqual(actual, ['b', 'c']);
   });
   it('should add the given dataLine to tail object bounded to it and give ', function() {
-    const tail = new MovingWindow({ numberLine: 4 });
+    const tail = new MovingWindow(4);
     onData.call(tail, '1\n2\n3\n');
     onData.call(tail, 'a\nb\nc\n');
     const actual = tail.getLines();
