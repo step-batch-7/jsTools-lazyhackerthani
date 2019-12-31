@@ -4,13 +4,13 @@ const MovingWindow = require('../src/movingWindow.js');
 describe('MovingWindow', function() {
   describe('getLines', function() {
     it('should give lines', function() {
-      const tail = new MovingWindow(10);
+      const tail = new MovingWindow();
       assert.deepStrictEqual(tail.getLines(), []);
     });
   });
   describe('addLine', function() {
     it('should add new line', function() {
-      const tail = new MovingWindow(10);
+      const tail = new MovingWindow();
       tail.addLine('this is new line');
       assert.deepStrictEqual(tail.getLines(), ['this is new line']);
     });

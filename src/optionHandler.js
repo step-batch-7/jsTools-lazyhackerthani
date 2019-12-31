@@ -4,9 +4,13 @@ const parseUserArgs = function(userArguments) {
   return processUserOptions(userArguments, defaultIsValid, initialIndex);
 };
 
+const startsWithMinus = function(option) {
+  return /^-/.test(option);
+};
+
 const processUserOptions = function(userArgs, isValid, index) {
   const currOption = userArgs[index];
-  if (!/^-/.test(currOption)) {
+  if (!startsWithMinus(currOption)) {
     return Object.assign(isValid, { files: userArgs.slice(index) });
   }
   let charPosition = 1;
