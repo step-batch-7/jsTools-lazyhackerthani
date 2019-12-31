@@ -12,14 +12,14 @@ describe('onData', function() {
     const actual = tail.getLines();
     assert.deepStrictEqual(actual, ['a', 'b']);
   });
-  it('should add the given dataLine to tail object bounded to it and give ', function() {
+  it('should add the given dataLine to bounded tail object', function() {
     const numberLine = 2;
     const tail = new MovingWindow(numberLine);
     onData.call(tail, 'a\nb\nc\n');
     const actual = tail.getLines();
     assert.deepStrictEqual(actual, ['b', 'c']);
   });
-  it('should add the given dataLine to tail object bounded to it and give ', function() {
+  it('should add the given dataLine to bounded tail object', function() {
     const numberLine = 4;
     const tail = new MovingWindow(numberLine);
     onData.call(tail, '1\n2\n3\n');
@@ -30,7 +30,7 @@ describe('onData', function() {
 });
 
 describe('readEndLines', function() {
-  it('should readInput from given event listener and do operations on it when onData invoke once with multi line data', function(done) {
+  it('should read line and have onData onEnd listener', function(done) {
     const dummyReadStream = {};
     let invokeOnData, invokeOnEnd;
     dummyReadStream.on = stub((name, callback) => {
@@ -52,7 +52,7 @@ describe('readEndLines', function() {
     invokeOnData('1\n2\n3\n');
     invokeOnEnd();
   });
-  it('should readInput from given event listener and do operations on it when onData invoke once with single line data', function(done) {
+  it('should readInput and invoke onDate once', function(done) {
     const dummyReadStream = {};
     let invokeOnData, invokeOnEnd;
     dummyReadStream.on = stub((name, callback) => {
@@ -75,7 +75,7 @@ describe('readEndLines', function() {
     invokeOnData('1');
     invokeOnEnd();
   });
-  it('should readInput from given event listener and do operations on it when onData invoke multiple times with single line data', function(done) {
+  it('should readInput and invoke onData multi time', function(done) {
     const dummyReadStream = {};
     let invokeOnData, invokeOnEnd;
     dummyReadStream.on = stub((name, callback) => {
@@ -103,7 +103,7 @@ describe('readEndLines', function() {
 });
 
 describe('executeTail', function() {
-  it('should execute tail operation with inputStream for valid option without files', function(done) {
+  it('should execute tail operation for valid option', function(done) {
     const dummyReadStream = {};
     let invokeOnData, invokeOnEnd;
     dummyReadStream.on = stub((name, callback) => {

@@ -17,7 +17,7 @@ describe('parseUserArgs', function() {
     const expected = { hasError: false, files: [] };
     assert.deepStrictEqual(actual, expected);
   });
-  it('should give option values and files,hasError should be true if one in the list is invalid', function() {
+  it('should give option illegal option error', function() {
     const actual = parseUserArgs(['-n', 'w', '-n', '5']);
     const expected = {
       hasError: true,
@@ -25,7 +25,7 @@ describe('parseUserArgs', function() {
     };
     assert.deepStrictEqual(actual, expected);
   });
-  it('should invalidate option if its invalid and give usage error also', function() {
+  it('should invalidate option and give usage error also', function() {
     const actual = parseUserArgs(['-h', '2', '-n', '5']);
     const expected = {
       hasError: true,
@@ -36,7 +36,7 @@ describe('parseUserArgs', function() {
     };
     assert.deepStrictEqual(actual, expected);
   });
-  it('should invalidate option if valid option has no value', function() {
+  it('should invalidate option and give require argument error', function() {
     const actual = parseUserArgs(['-n']);
     const expected = {
       hasError: true,
@@ -50,18 +50,18 @@ describe('parseUserArgs', function() {
 });
 
 describe('isValidValue', function() {
-  it('should validate and give an object saying hasError as false and option as key and value to it', function() {
+  it('should validate and give hasError as false', function() {
     const userLineCount = 2;
     const actual = isValidValue('n', userLineCount);
     const expected = { hasError: false, numberLine: 2 };
     assert.deepStrictEqual(actual, expected);
   });
-  it('should validate and give an object saying hasError as false and option as key and value to it even no is string format', function() {
+  it('should validate even no is in string format', function() {
     const actual = isValidValue('n', '2');
     const expected = { hasError: false, numberLine: 2 };
     assert.deepStrictEqual(actual, expected);
   });
-  it('should invalidate and give an object saying hasError as true and errorMsg', function() {
+  it('should invalidate and give hasError as true and errorMsg', function() {
     const actual = isValidValue('n', 'w');
     const expected = {
       hasError: true,
@@ -72,7 +72,7 @@ describe('isValidValue', function() {
 });
 
 describe('isValidOption', function() {
-  it('should  validate option and give a object with hasError false', function() {
+  it('should  validate option and give hasError false', function() {
     const actual = isValidOption('n');
     const expected = { hasError: false };
     assert.deepStrictEqual(actual, expected);
@@ -96,7 +96,7 @@ describe('isValidOptionAndValue', function() {
     const expected = { hasError: false, numberLine: 5 };
     assert.deepStrictEqual(actual, expected);
   });
-  it('should invalidate option if its invalid and give usage error also', function() {
+  it('should invalidate option  and give usage error also', function() {
     const actual = isValidOptionAndValue('h', '2');
     const expected = {
       hasError: true,
@@ -107,7 +107,7 @@ describe('isValidOptionAndValue', function() {
     };
     assert.deepStrictEqual(actual, expected);
   });
-  it('should invalidate value and give an object saying hasError as true and errorMsg', function() {
+  it('should invalidate value and give illegal offset error', function() {
     const actual = isValidOptionAndValue('n', 'w');
     const expected = {
       hasError: true,
