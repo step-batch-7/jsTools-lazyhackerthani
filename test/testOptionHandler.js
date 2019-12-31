@@ -1,37 +1,29 @@
 const assert = require('chai').assert;
 const {
-  processUserOptions,
   isValidValue,
   isValidOption,
-  isValidOptionAndValue
+  isValidOptionAndValue,
+  parseUserArgs
 } = require('../src/optionHandler.js');
 
-describe('processUserOptions', function() {
+describe('parseUserArgs', function() {
   it('should give option values and files in an object', function() {
-    const actual = processUserOptions(['-n', '5'], { hasError: false }, 0);
+    const actual = parseUserArgs(['-n', '5']);
     const expected = { hasError: false, numberLine: 5, files: [] };
     assert.deepStrictEqual(actual, expected);
   });
   it('should give option values and files,option which is given', function() {
-    const actual = processUserOptions([], { hasError: false }, 0);
+    const actual = parseUserArgs([]);
     const expected = { hasError: false, files: [] };
     assert.deepStrictEqual(actual, expected);
   });
   it('should give option values and files,hasError should be true if one in the list is invalid', function() {
-    const actual = processUserOptions(
-      ['-n', 'w', '-n', '5'],
-      { hasError: false },
-      0
-    );
+    const actual = parseUserArgs(['-n', 'w', '-n', '5']);
     const expected = { hasError: true, errorMsg: [`tail: illegal offset -w`] };
     assert.deepStrictEqual(actual, expected);
   });
   it('should invalidate option if its invalid and give usage error also', function() {
-    const actual = processUserOptions(
-      ['-h', '2', '-n', '5'],
-      { hasError: false },
-      0
-    );
+    const actual = parseUserArgs(['-h', '2', '-n', '5']);
     const expected = {
       hasError: true,
       errorMsg: [
@@ -81,7 +73,7 @@ describe('isValidOption', function() {
 });
 
 describe('isValidOptionAndValue', function() {
-  it('should validate option', function() {
+  it('should validate option even numeric value in string', function() {
     const actual = isValidOptionAndValue('n', '5');
     const expected = { hasError: false, numberLine: 5 };
     assert.deepStrictEqual(actual, expected);

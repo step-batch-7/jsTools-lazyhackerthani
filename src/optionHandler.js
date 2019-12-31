@@ -1,11 +1,17 @@
+const parseUserArgs = function(userArguments) {
+  const initialIndex = 0;
+  const defaultIsValid = { hasError: false };
+  return processUserOptions(userArguments, defaultIsValid, initialIndex);
+};
+
 const processUserOptions = function(userArgs, isValid, index) {
   const currOption = userArgs[index];
   if (!/^-/.test(currOption)) {
     return Object.assign(isValid, { files: userArgs.slice(index) });
   }
-  let optionPosition = 1;
-  const option = currOption.charAt(optionPosition);
-  const value = currOption.slice(++optionPosition) || userArgs[++index];
+  let charPosition = 1;
+  const option = currOption.charAt(charPosition);
+  const value = currOption.slice(++charPosition) || userArgs[++index];
   isValid = isValidOptionAndValue(option, value);
   if (isValid.hasError) {
     return isValid;
@@ -45,8 +51,8 @@ const isValidValue = function(option, optionValue) {
 };
 
 module.exports = {
-  processUserOptions,
   isValidValue,
   isValidOption,
-  isValidOptionAndValue
+  isValidOptionAndValue,
+  parseUserArgs
 };

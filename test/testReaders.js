@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const { spy, stub } = require('sinon');
+const { spy, stub, fake } = require('sinon');
 const MovingWindow = require('../src/movingWindow.js');
 const { readEndLines, onData } = require('../src/readers.js');
 
