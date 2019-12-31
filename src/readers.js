@@ -1,5 +1,14 @@
 const MovingWindow = require('../src/movingWindow.js');
 
+const executeTail = function(parsedOptions, readerStreams, callBack) {
+  if (parsedOptions.hasError) {
+    callBack('', parsedOptions.errorMsg.join('\n'));
+  }
+  if (Array.isArray(parsedOptions.files)) {
+    readEndLines(parsedOptions.numberLine, readerStreams.inputStream, callBack);
+  }
+};
+
 const readEndLines = function(options, readStream, onComplete) {
   const tail = new MovingWindow(options);
   readStream.setEncoding('utf8');
@@ -14,4 +23,4 @@ const onData = function(dataLine) {
   lines.forEach(line => this.addLine(line));
 };
 
-module.exports = { readEndLines, onData };
+module.exports = { readEndLines, onData, executeTail };

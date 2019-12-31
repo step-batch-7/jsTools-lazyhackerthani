@@ -1,7 +1,7 @@
 const assert = require('chai').assert;
-const { spy, stub, fake } = require('sinon');
+const { spy, stub } = require('sinon');
 const MovingWindow = require('../src/movingWindow.js');
-const { readEndLines, onData } = require('../src/readers.js');
+const { readEndLines, onData, executeTail } = require('../src/readers.js');
 
 describe('onData', function() {
   it('should add the given dataLine to tail object bounded to it', function() {
@@ -74,6 +74,31 @@ describe('readEndLines', function() {
       assert.deepStrictEqual(content, '1\n2');
       done();
     });
+    invokeOnData('1');
+    invokeOnData('2');
+    invokeOnEnd();
+  });
+});
+
+describe('executeTail', function() {
+  it('should execute tail operation for valid option', function(done) {
+    const dummyReadStream = {};
+    let invokeOnData, invokeOnEnd;
+    dummyReadStream.on = stub((name, callback) => {
+      if (name == 'data') invokeOnData = callback;
+      if (name == 'end') invokeOnEnd = callback;
+    });
+
+    dummyReadStream.setEncoding = spy();
+    executeTail(
+      { hasError: false, numberLine: 5, files: [] },
+      { inputStream: dummyReadStream },
+      content => {
+        assert(dummyReadStream.setEncoding.calledWith('utf8'));
+        assert.deepStrictEqual(content, '1\n2');
+        done();
+      }
+    );
     invokeOnData('1');
     invokeOnData('2');
     invokeOnEnd();
