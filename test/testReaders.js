@@ -2,6 +2,7 @@ const assert = require('chai').assert;
 const { spy, stub } = require('sinon');
 const MovingWindow = require('../src/movingWindow.js');
 const { readEndLines, onData, executeTail } = require('../src/readers.js');
+const emptyString = '';
 
 describe('onData', function() {
   it('should add the given dataLine to tail object bounded to it', function() {
@@ -52,7 +53,8 @@ describe('readEndLines', function() {
     });
 
     dummyReadStream.setEncoding = spy();
-    readEndLines({ numberLine: 10 }, dummyReadStream, content => {
+    readEndLines({ numberLine: 10 }, dummyReadStream, (content, err) => {
+      assert.strictEqual(err, emptyString);
       assert(dummyReadStream.setEncoding.calledWith('utf8'));
       assert.deepStrictEqual(content, '1');
       done();
@@ -69,7 +71,8 @@ describe('readEndLines', function() {
     });
 
     dummyReadStream.setEncoding = spy();
-    readEndLines({ numberLine: 10 }, dummyReadStream, content => {
+    readEndLines({ numberLine: 10 }, dummyReadStream, (content, err) => {
+      assert.strictEqual(err, emptyString);
       assert(dummyReadStream.setEncoding.calledWith('utf8'));
       assert.deepStrictEqual(content, '1\n2');
       done();
@@ -81,7 +84,7 @@ describe('readEndLines', function() {
 });
 
 describe('executeTail', function() {
-  it('should execute tail operation for valid option', function(done) {
+  it('should execute tail operation with inputStream for valid option without files', function(done) {
     const dummyReadStream = {};
     let invokeOnData, invokeOnEnd;
     dummyReadStream.on = stub((name, callback) => {
@@ -93,7 +96,8 @@ describe('executeTail', function() {
     executeTail(
       { hasError: false, numberLine: 5, files: [] },
       { inputStream: dummyReadStream },
-      content => {
+      (content, err) => {
+        assert.strictEqual(err, emptyString);
         assert(dummyReadStream.setEncoding.calledWith('utf8'));
         assert.deepStrictEqual(content, '1\n2');
         done();
@@ -102,5 +106,22 @@ describe('executeTail', function() {
     invokeOnData('1');
     invokeOnData('2');
     invokeOnEnd();
+  });
+
+  it('should give error for invalid option', function(done) {
+    const fakeReadStream = {};
+    const parsedOption = {
+      hasError: true,
+      errorMsg: [`tail: illegal offset -w`]
+    };
+    executeTail(
+      parsedOption,
+      { inputStream: fakeReadStream },
+      (content, err) => {
+        assert.strictEqual(content, emptyString);
+        assert.strictEqual(err, parsedOption.errorMsg.join('\n'));
+        done();
+      }
+    );
   });
 });

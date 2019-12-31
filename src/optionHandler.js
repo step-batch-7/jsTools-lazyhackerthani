@@ -43,7 +43,7 @@ const isValidValue = function(option, optionValue) {
   const validOptionAndValue = {};
   validOptionAndValue.hasError = !Number.isInteger(+optionValue);
   if (validOptionAndValue.hasError) {
-    validOptionAndValue.errorMsg = [`tail: illegal offset -${optionValue}`];
+    validOptionAndValue.errorMsg = [`tail: illegal offset -- ${optionValue}`];
     return validOptionAndValue;
   }
   validOptionAndValue[option] = +optionValue;

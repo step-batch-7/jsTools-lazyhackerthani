@@ -19,7 +19,10 @@ describe('parseUserArgs', function() {
   });
   it('should give option values and files,hasError should be true if one in the list is invalid', function() {
     const actual = parseUserArgs(['-n', 'w', '-n', '5']);
-    const expected = { hasError: true, errorMsg: [`tail: illegal offset -w`] };
+    const expected = {
+      hasError: true,
+      errorMsg: [`tail: illegal offset -- w`]
+    };
     assert.deepStrictEqual(actual, expected);
   });
   it('should invalidate option if its invalid and give usage error also', function() {
@@ -48,7 +51,10 @@ describe('isValidValue', function() {
   });
   it('should invalidate and give an object saying hasError as true and errorMsg', function() {
     const actual = isValidValue('numberLine', 'w');
-    const expected = { hasError: true, errorMsg: [`tail: illegal offset -w`] };
+    const expected = {
+      hasError: true,
+      errorMsg: [`tail: illegal offset -- w`]
+    };
     assert.deepStrictEqual(actual, expected);
   });
 });
@@ -91,7 +97,10 @@ describe('isValidOptionAndValue', function() {
   });
   it('should invalidate value and give an object saying hasError as true and errorMsg', function() {
     const actual = isValidOptionAndValue('n', 'w');
-    const expected = { hasError: true, errorMsg: [`tail: illegal offset -w`] };
+    const expected = {
+      hasError: true,
+      errorMsg: [`tail: illegal offset -- w`]
+    };
     assert.deepStrictEqual(actual, expected);
   });
 });

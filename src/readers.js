@@ -1,4 +1,5 @@
 const MovingWindow = require('../src/movingWindow.js');
+const emptyString = '';
 
 const executeTail = function(parsedOptions, readerStreams, callBack) {
   if (parsedOptions.hasError) {
@@ -14,7 +15,7 @@ const readEndLines = function(options, readStream, onComplete) {
   readStream.setEncoding('utf8');
   readStream.on('data', onData.bind(tail));
   readStream.on('end', () => {
-    onComplete(tail.getLines().join('\n'));
+    onComplete(tail.getLines().join('\n'), emptyString);
   });
 };
 

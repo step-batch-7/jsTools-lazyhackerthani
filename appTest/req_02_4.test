@@ -1,0 +1,2 @@
+cat ./appTest/tenLineFile.txt|node tail.js -nr
+tail: illegal offset -- r
