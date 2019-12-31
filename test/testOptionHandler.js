@@ -36,6 +36,17 @@ describe('parseUserArgs', function() {
     };
     assert.deepStrictEqual(actual, expected);
   });
+  it('should invalidate option if valid option has no value', function() {
+    const actual = parseUserArgs(['-n']);
+    const expected = {
+      hasError: true,
+      errorMsg: [
+        'tail: option requires an argument -- n',
+        'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]'
+      ]
+    };
+    assert.deepStrictEqual(actual, expected);
+  });
 });
 
 describe('isValidValue', function() {

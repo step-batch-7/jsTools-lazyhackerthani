@@ -41,6 +41,14 @@ const isValidOption = function(option) {
 
 const isValidValue = function(option, optionValue) {
   const validOptionAndValue = {};
+  validOptionAndValue.hasError = optionValue === undefined;
+  if (validOptionAndValue.hasError) {
+    validOptionAndValue.errorMsg = [
+      'tail: option requires an argument -- n',
+      'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]'
+    ];
+    return validOptionAndValue;
+  }
   validOptionAndValue.hasError = !Number.isInteger(+optionValue);
   if (validOptionAndValue.hasError) {
     validOptionAndValue.errorMsg = [`tail: illegal offset -- ${optionValue}`];
