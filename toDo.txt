@@ -18,16 +18,19 @@ setup :-
  ✅ MovingWindow
  ✅ addLine
  ✅ getLines
- ✅ parseUserArgs
+ ✅ processUserOptions
  ✅ readEndLines
  ✅ onData
  ✅ printTail(printing in main)
 
 v 0.0.2.0
-node tail.js -n 5
+node tail.js -n 5 or node tail.js -n5
 
 setup:-
 ✅files:optionHandler.js,testOptionHandler.js
 
 Tasks:-
-✅ getNumberLineValue
+✅ processUserOptions
+✅isValidOptionAndValue
+✅isValidOption
+✅isValidValue

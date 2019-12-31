@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "./appTest.sh appTest/*.test ;mocha"
+    "test": "./appTest.sh appTest/*.test ;mocha&&eslint src test"
   },
   "repository": {
     "type": "git",

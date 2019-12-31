@@ -1,6 +1,7 @@
 class MovingWindow {
   constructor(numberLine) {
-    this.numberLine = numberLine || 10;
+    const defaultNumberLine = 10;
+    this.numberLine = numberLine || defaultNumberLine;
     this.lines = [];
   }
   getLines() {

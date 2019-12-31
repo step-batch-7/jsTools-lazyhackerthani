@@ -1,29 +1,52 @@
-const parseUserArgs = function(userArgs, index = 0) {
-  let isValid = { hasError: false };
+const processUserOptions = function(userArgs, isValid, index) {
   const currOption = userArgs[index];
-  if (!/^-/.test(currOption) || userArgs.length <= 0) {
+  if (!/^-/.test(currOption)) {
     return Object.assign(isValid, { files: userArgs.slice(index) });
   }
-  if (/^-[n]\d?$/.test(currOption)) {
-    const option = currOption.charAt(1);
-    const value = currOption.slice(2) || userArgs[++index];
-    isValid = isValidOptionValue(option, value);
-  }
+  let optionPosition = 1;
+  const option = currOption.charAt(optionPosition);
+  const value = currOption.slice(++optionPosition) || userArgs[++index];
+  isValid = isValidOptionAndValue(option, value);
   if (isValid.hasError) {
     return isValid;
   }
-  return Object.assign(isValid, parseUserArgs(userArgs, index + 1));
+  return processUserOptions(userArgs, isValid, ++index);
 };
 
-const isValidOptionValue = function(validOption, optionValue) {
+const isValidOptionAndValue = function(userOption, value) {
+  const isValid = isValidOption(userOption);
+  if (isValid.hasError) {
+    return isValid;
+  }
+  const options = { n: 'numberLine' };
+  return isValidValue(options[userOption], value);
+};
+
+const isValidOption = function(option) {
+  const isValid = { hasError: option !== 'n' };
+  if (isValid.hasError) {
+    isValid.errorMsg = [
+      `tail: illegal option -- ${option}`,
+      'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]'
+    ];
+  }
+  return isValid;
+};
+
+const isValidValue = function(option, optionValue) {
   const validOptionAndValue = {};
   validOptionAndValue.hasError = !Number.isInteger(+optionValue);
   if (validOptionAndValue.hasError) {
-    validOptionAndValue.errorMsg = `tail: illegal offset -${optionValue}`;
+    validOptionAndValue.errorMsg = [`tail: illegal offset -${optionValue}`];
     return validOptionAndValue;
   }
-  validOptionAndValue[validOption] = +optionValue;
+  validOptionAndValue[option] = +optionValue;
   return validOptionAndValue;
 };
 
-module.exports = { parseUserArgs, isValidOptionValue };
+module.exports = {
+  processUserOptions,
+  isValidValue,
+  isValidOption,
+  isValidOptionAndValue
+};
