@@ -21,7 +21,7 @@ describe('parseUserArgs', function() {
     const actual = parseUserArgs(['-n', 'w', '-n', '5']);
     const expected = {
       hasError: true,
-      errorMsg: [`tail: illegal offset -- w`]
+      errorMsg: ['tail: illegal offset -- w']
     };
     assert.deepStrictEqual(actual, expected);
   });
@@ -30,8 +30,8 @@ describe('parseUserArgs', function() {
     const expected = {
       hasError: true,
       errorMsg: [
-        `tail: illegal option -- h`,
-        `usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]`
+        'tail: illegal option -- h',
+        'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]'
       ]
     };
     assert.deepStrictEqual(actual, expected);
@@ -51,20 +51,21 @@ describe('parseUserArgs', function() {
 
 describe('isValidValue', function() {
   it('should validate and give an object saying hasError as false and option as key and value to it', function() {
-    const actual = isValidValue('numberLine', 2);
+    const userLineCount = 2;
+    const actual = isValidValue('n', userLineCount);
     const expected = { hasError: false, numberLine: 2 };
     assert.deepStrictEqual(actual, expected);
   });
   it('should validate and give an object saying hasError as false and option as key and value to it even no is string format', function() {
-    const actual = isValidValue('numberLine', '2');
+    const actual = isValidValue('n', '2');
     const expected = { hasError: false, numberLine: 2 };
     assert.deepStrictEqual(actual, expected);
   });
   it('should invalidate and give an object saying hasError as true and errorMsg', function() {
-    const actual = isValidValue('numberLine', 'w');
+    const actual = isValidValue('n', 'w');
     const expected = {
       hasError: true,
-      errorMsg: [`tail: illegal offset -- w`]
+      errorMsg: ['tail: illegal offset -- w']
     };
     assert.deepStrictEqual(actual, expected);
   });
@@ -81,8 +82,8 @@ describe('isValidOption', function() {
     const expected = {
       hasError: true,
       errorMsg: [
-        `tail: illegal option -- h`,
-        `usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]`
+        'tail: illegal option -- h',
+        'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]'
       ]
     };
     assert.deepStrictEqual(actual, expected);
@@ -100,8 +101,8 @@ describe('isValidOptionAndValue', function() {
     const expected = {
       hasError: true,
       errorMsg: [
-        `tail: illegal option -- h`,
-        `usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]`
+        'tail: illegal option -- h',
+        'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]'
       ]
     };
     assert.deepStrictEqual(actual, expected);
@@ -110,7 +111,7 @@ describe('isValidOptionAndValue', function() {
     const actual = isValidOptionAndValue('n', 'w');
     const expected = {
       hasError: true,
-      errorMsg: [`tail: illegal offset -- w`]
+      errorMsg: ['tail: illegal offset -- w']
     };
     assert.deepStrictEqual(actual, expected);
   });

@@ -28,8 +28,7 @@ const isValidOptionAndValue = function(userOption, value) {
   if (isValid.hasError) {
     return isValid;
   }
-  const options = { n: 'numberLine' };
-  return isValidValue(options[userOption], value);
+  return isValidValue(userOption, value);
 };
 
 const isValidOption = function(option) {
@@ -48,7 +47,7 @@ const isValidValue = function(option, optionValue) {
   validOptionAndValue.hasError = optionValue === undefined;
   if (validOptionAndValue.hasError) {
     validOptionAndValue.errorMsg = [
-      'tail: option requires an argument -- n',
+      `tail: option requires an argument -- ${option}`,
       'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]'
     ];
     return validOptionAndValue;
@@ -58,7 +57,8 @@ const isValidValue = function(option, optionValue) {
     validOptionAndValue.errorMsg = [`tail: illegal offset -- ${optionValue}`];
     return validOptionAndValue;
   }
-  validOptionAndValue[option] = +optionValue;
+  const optionNames = { n: 'numberLine' };
+  validOptionAndValue[optionNames[option]] = +optionValue;
   return validOptionAndValue;
 };
 

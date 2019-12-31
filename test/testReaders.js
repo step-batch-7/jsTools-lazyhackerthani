@@ -6,19 +6,22 @@ const emptyString = '';
 
 describe('onData', function() {
   it('should add the given dataLine to tail object bounded to it', function() {
-    const tail = new MovingWindow(10);
+    const numberLine = 10;
+    const tail = new MovingWindow(numberLine);
     onData.call(tail, 'a\nb\n');
     const actual = tail.getLines();
     assert.deepStrictEqual(actual, ['a', 'b']);
   });
   it('should add the given dataLine to tail object bounded to it and give ', function() {
-    const tail = new MovingWindow(2);
+    const numberLine = 2;
+    const tail = new MovingWindow(numberLine);
     onData.call(tail, 'a\nb\nc\n');
     const actual = tail.getLines();
     assert.deepStrictEqual(actual, ['b', 'c']);
   });
   it('should add the given dataLine to tail object bounded to it and give ', function() {
-    const tail = new MovingWindow(4);
+    const numberLine = 4;
+    const tail = new MovingWindow(numberLine);
     onData.call(tail, '1\n2\n3\n');
     onData.call(tail, 'a\nb\nc\n');
     const actual = tail.getLines();
@@ -31,12 +34,17 @@ describe('readEndLines', function() {
     const dummyReadStream = {};
     let invokeOnData, invokeOnEnd;
     dummyReadStream.on = stub((name, callback) => {
-      if (name == 'data') invokeOnData = callback;
-      if (name == 'end') invokeOnEnd = callback;
+      if (name === 'data') {
+        invokeOnData = callback;
+      }
+      if (name === 'end') {
+        invokeOnEnd = callback;
+      }
     });
 
     dummyReadStream.setEncoding = spy();
-    readEndLines({ numberLine: 10 }, dummyReadStream, content => {
+    const numberLine = 10;
+    readEndLines({ numberLine }, dummyReadStream, content => {
       assert(dummyReadStream.setEncoding.calledWith('utf8'));
       assert.deepStrictEqual(content, '1\n2\n3');
       done();
@@ -48,12 +56,17 @@ describe('readEndLines', function() {
     const dummyReadStream = {};
     let invokeOnData, invokeOnEnd;
     dummyReadStream.on = stub((name, callback) => {
-      if (name == 'data') invokeOnData = callback;
-      if (name == 'end') invokeOnEnd = callback;
+      if (name === 'data') {
+        invokeOnData = callback;
+      }
+      if (name === 'end') {
+        invokeOnEnd = callback;
+      }
     });
 
     dummyReadStream.setEncoding = spy();
-    readEndLines({ numberLine: 10 }, dummyReadStream, (content, err) => {
+    const numberLine = 10;
+    readEndLines({ numberLine }, dummyReadStream, (content, err) => {
       assert.strictEqual(err, emptyString);
       assert(dummyReadStream.setEncoding.calledWith('utf8'));
       assert.deepStrictEqual(content, '1');
@@ -66,12 +79,18 @@ describe('readEndLines', function() {
     const dummyReadStream = {};
     let invokeOnData, invokeOnEnd;
     dummyReadStream.on = stub((name, callback) => {
-      if (name == 'data') invokeOnData = callback;
-      if (name == 'end') invokeOnEnd = callback;
+      if (name === 'data') {
+        invokeOnData = callback;
+      }
+      if (name === 'end') {
+        invokeOnEnd = callback;
+      }
     });
 
     dummyReadStream.setEncoding = spy();
-    readEndLines({ numberLine: 10 }, dummyReadStream, (content, err) => {
+    const numberLine = 10;
+
+    readEndLines({ numberLine }, dummyReadStream, (content, err) => {
       assert.strictEqual(err, emptyString);
       assert(dummyReadStream.setEncoding.calledWith('utf8'));
       assert.deepStrictEqual(content, '1\n2');
@@ -88,13 +107,18 @@ describe('executeTail', function() {
     const dummyReadStream = {};
     let invokeOnData, invokeOnEnd;
     dummyReadStream.on = stub((name, callback) => {
-      if (name == 'data') invokeOnData = callback;
-      if (name == 'end') invokeOnEnd = callback;
+      if (name === 'data') {
+        invokeOnData = callback;
+      }
+      if (name === 'end') {
+        invokeOnEnd = callback;
+      }
     });
 
     dummyReadStream.setEncoding = spy();
+    const numberLine = 5;
     executeTail(
-      { hasError: false, numberLine: 5, files: [] },
+      { hasError: false, numberLine, files: [] },
       { inputStream: dummyReadStream },
       (content, err) => {
         assert.strictEqual(err, emptyString);
@@ -112,7 +136,7 @@ describe('executeTail', function() {
     const fakeReadStream = {};
     const parsedOption = {
       hasError: true,
-      errorMsg: [`tail: illegal offset -w`]
+      errorMsg: ['tail: illegal offset -w']
     };
     executeTail(
       parsedOption,
