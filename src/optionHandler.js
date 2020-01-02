@@ -8,7 +8,8 @@ const startsWithMinus = function(option) {
   return /^-/.test(option);
 };
 
-const processUserOptions = function(userArgs, isValid) {
+const processUserOptions = function(userArgs, options) {
+  let isValid = { ...options };
   let index = 0;
   const currOption = userArgs[index];
   if (!startsWithMinus(currOption)) {
@@ -18,10 +19,9 @@ const processUserOptions = function(userArgs, isValid) {
   const option = currOption.charAt(charPosition);
   const value = currOption.slice(++charPosition) || userArgs[++index];
   isValid = isValidOptionAndValue(option, value);
-  if (isValid.hasError) {
-    return isValid;
-  }
-  return processUserOptions(userArgs.slice(++index), isValid);
+  return isValid.hasError
+    ? isValid
+    : processUserOptions(userArgs.slice(++index), isValid);
 };
 
 const isValidOptionAndValue = function(userOption, value) {
