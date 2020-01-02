@@ -8,10 +8,11 @@ const startsWithMinus = function(option) {
   return /^-/.test(option);
 };
 
-const processUserOptions = function(userArgs, isValid, index) {
+const processUserOptions = function(userArgs, isValid) {
+  let index = 0;
   const currOption = userArgs[index];
   if (!startsWithMinus(currOption)) {
-    return Object.assign(isValid, { files: userArgs.slice(index) });
+    return Object.assign(isValid, { files: userArgs });
   }
   let charPosition = 1;
   const option = currOption.charAt(charPosition);
@@ -20,7 +21,7 @@ const processUserOptions = function(userArgs, isValid, index) {
   if (isValid.hasError) {
     return isValid;
   }
-  return processUserOptions(userArgs, isValid, ++index);
+  return processUserOptions(userArgs.slice(++index), isValid);
 };
 
 const isValidOptionAndValue = function(userOption, value) {
@@ -43,23 +44,21 @@ const isValidOption = function(option) {
 };
 
 const isValidValue = function(option, optionValue) {
-  const validOptionAndValue = {};
-  validOptionAndValue.hasError = optionValue === undefined;
-  if (validOptionAndValue.hasError) {
-    validOptionAndValue.errorMsg = [
-      `tail: option requires an argument -- ${option}`,
-      'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]'
-    ];
-    return validOptionAndValue;
+  let hasError = optionValue === undefined;
+  if (hasError) {
+    return {
+      hasError,
+      errorMsg: [
+        `tail: option requires an argument -- ${option}`,
+        'usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]'
+      ]
+    };
   }
-  validOptionAndValue.hasError = !Number.isInteger(+optionValue);
-  if (validOptionAndValue.hasError) {
-    validOptionAndValue.errorMsg = [`tail: illegal offset -- ${optionValue}`];
-    return validOptionAndValue;
+  hasError = !Number.isInteger(+optionValue);
+  if (hasError) {
+    return { hasError, errorMsg: [`tail: illegal offset -- ${optionValue}`] };
   }
-  const optionNames = { n: 'numberLine' };
-  validOptionAndValue[optionNames[option]] = +optionValue;
-  return validOptionAndValue;
+  return { hasError, numberLine: +optionValue };
 };
 
 module.exports = {
