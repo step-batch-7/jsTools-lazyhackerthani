@@ -1,14 +1,14 @@
-const parseUserArgs = function(userArguments) {
+const parseUserArgs = function (userArguments) {
   const initialIndex = 0;
   const defaultIsValid = { hasError: false };
   return processUserOptions(userArguments, defaultIsValid, initialIndex);
 };
 
-const startsWithMinus = function(option) {
+const startsWithMinus = function (option) {
   return /^-/.test(option);
 };
 
-const processUserOptions = function(userArgs, options) {
+const processUserOptions = function (userArgs, options) {
   let isValid = { ...options };
   let index = 0;
   const currOption = userArgs[index];
@@ -24,7 +24,7 @@ const processUserOptions = function(userArgs, options) {
     : processUserOptions(userArgs.slice(++index), isValid);
 };
 
-const isValidOptionAndValue = function(userOption, value) {
+const isValidOptionAndValue = function (userOption, value) {
   const isValid = isValidOption(userOption);
   if (isValid.hasError) {
     return isValid;
@@ -32,7 +32,7 @@ const isValidOptionAndValue = function(userOption, value) {
   return isValidValue(userOption, value);
 };
 
-const isValidOption = function(option) {
+const isValidOption = function (option) {
   const isValid = { hasError: option !== 'n' };
   if (isValid.hasError) {
     isValid.errorMsg = [
@@ -43,7 +43,7 @@ const isValidOption = function(option) {
   return isValid;
 };
 
-const isValidValue = function(option, optionValue) {
+const isValidValue = function (option, optionValue) {
   let hasError = optionValue === undefined;
   if (hasError) {
     return {
